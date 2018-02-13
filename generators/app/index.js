@@ -4,65 +4,147 @@ const chalk = require('chalk');
 const yosay = require('yosay');
 
 module.exports = class extends Generator {
+  // Note: arguments and options should be defined in the constructor.
+  constructor(args, opts) {
+    super(args, opts);
+
+    // This makes `appname` a required argument.
+    this.argument('appname', { type: String, required: false });
+
+    // And you can then access it later; e.g.
+    this.log(this.options.appname);
+  }
   prompting() {
     // Have Yeoman greet the user.
-    this.log(
-      yosay('Welcome to the legendary ' + chalk.red('proyect-base-front') + ' generator!')
-    );
+    this.log(yosay('Welcome to the ' + chalk.red('proyect-base-front') + ' generator!'));
 
     const prompts = [
       {
-        type: 'confirm',
-        name: 'someAnswer',
-        message: 'Would you like to enable this option?',
-        default: true
-      },
-      {
-        type: 'input',
-        name: 'name',
-        message: 'What is your name?'
+        type: 'list',
+        name: 'proyect',
+        message: 'What tipe of proyect?',
+        choices: [
+          {
+            name: 'mvc',
+            value: 'mvc'
+          },
+          {
+            name: 'redux',
+            value: 'redux'
+          },
+          {
+            name: 'pwa',
+            value: 'pwa'
+          },
+          {
+            name: 'isomorfica/universal',
+            value: 'universal'
+          }
+        ]
       },
       {
         type: 'list',
-        name: 'city',
-        message: 'What city do you like?',
+        name: 'script',
+        message: "What 'language' do you like?",
         choices: [
           {
-            name: 'Madrid',
-            value: 'madrid'
+            name: 'TypeScript',
+            value: 'ts'
           },
           {
-            name: 'Barcelona',
-            value: 'barcelona'
+            name: 'ES6',
+            value: 'es6'
+          }
+        ]
+      },
+      {
+        type: 'list',
+        name: 'linter',
+        message: 'What linter do you like?',
+        choices: [
+          {
+            name: 'TSLint (only TS)',
+            value: 'tsLint'
           },
           {
-            name: 'Paris',
-            value: 'paris'
+            name: 'Eslint + AirBnB',
+            value: 'airbnb'
           },
           {
-            name: 'London',
-            value: 'london'
+            name: 'Eslint + Standard',
+            value: 'airbnb'
+          }
+        ]
+      },
+      {
+        type: 'list',
+        name: 'preProcessor',
+        message: 'What pre-processor do you like? (postCSS by default)',
+        choices: [
+          {
+            name: 'scss/sass',
+            value: 'scss'
           },
           {
-            name: 'Berlin',
-            value: 'berlin'
+            name: 'less',
+            value: 'less'
+          },
+          {
+            name: 'stylus',
+            value: 'stylus'
+          }
+        ]
+      },
+      {
+        type: 'list',
+        name: 'unitTesting',
+        message: 'Unit testing:',
+        choices: [
+          {
+            name: 'Mocha + Chai',
+            value: 'mocha'
+          },
+          {
+            name: 'Jest',
+            value: 'jest'
+          }
+        ]
+      },
+      {
+        type: 'list',
+        name: 'e2eTesting',
+        message: 'E2E testing:',
+        choices: [
+          {
+            name: 'Cypress (Only Chrome)',
+            value: 'cypress'
+          },
+          {
+            name: 'Nightwatch (Selenium based)',
+            value: 'nightwatch'
           }
         ]
       },
       {
         type: 'checkbox',
-        name: 'contentTypeOptions',
-        message: 'Other options:',
+        name: 'prueba',
+        message: 'prueba checkbox:',
         choices: [
           {
-            name: 'Custom Admin Title callback',
-            value: 'adminTitleCallback'
+            name: 'Mocha + Chai',
+            value: 'mocha'
           },
           {
-            name: 'Custom Admin Info callback',
-            value: 'adminInfoCallback'
+            name: 'Jest',
+            value: 'jest'
           }
         ]
+      },
+      {
+        type: 'confirm',
+        name: 'sure',
+        message: 'Are you sure?',
+        default: true
       }
     ];
 
@@ -70,17 +152,35 @@ module.exports = class extends Generator {
       // To access props later use this.props.someAnswer;
       this.props = props;
       this.log('your name is ', props.name);
+      this.log('your proyect ', props.proyect);
+      this.log('your script ', props.script);
+      this.log('your linter ', props.linter);
+      this.log('your preProcessor ', props.preProcessor);
+      this.log('your unitTesting ', props.unitTesting);
+      this.log('your e2eTesting ', props.e2eTesting);
     });
   }
 
+  evaluateRequest() {}
+
   writing() {
     this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
+      this.templatePath('./**/*'),
+      this.destinationPath('./' + this.options.appname)
+    );
+    this.fs.copyTpl(
+      this.templatePath('./package.json'),
+      this.destinationPath('./' + this.options.appname + '/package.json'),
+      { title: this.options.appname }
+    );
+    this.fs.copyTpl(
+      this.templatePath('./static/manifest.json'),
+      this.destinationPath('./' + this.options.appname + '/static/manifest.json'),
+      { title: this.options.appname }
     );
   }
 
   install() {
-    this.installDependencies();
+    // This.installDependencies();
   }
 };
