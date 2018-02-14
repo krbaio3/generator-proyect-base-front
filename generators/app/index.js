@@ -63,16 +63,20 @@ module.exports = class extends Generator {
         message: 'What linter do you like?',
         choices: [
           {
-            name: 'TSLint (only TS)',
-            value: 'tsLint'
+            name: 'TSLint + AirBnB (only TS)',
+            value: 'tsAirBnB'
+          },
+          {
+            name: 'TSLint + Standard (only TS)',
+            value: 'tsStd'
           },
           {
             name: 'Eslint + AirBnB',
-            value: 'airbnb'
+            value: 'es6Airbnb'
           },
           {
             name: 'Eslint + Standard',
-            value: 'airbnb'
+            value: 'es6Std'
           }
         ]
       },
@@ -122,8 +126,18 @@ module.exports = class extends Generator {
           {
             name: 'Nightwatch (Selenium based)',
             value: 'nightwatch'
+          },
+          {
+            name: 'Protractor',
+            value: 'protractor'
           }
         ]
+      },
+      {
+        type: 'confirm',
+        name: 'cucumber',
+        message: 'Do you like cucumber?',
+        default: false
       },
       {
         type: 'checkbox',
@@ -179,7 +193,6 @@ module.exports = class extends Generator {
       { title: this.options.appname }
     );
   }
-
   install() {
     // This.installDependencies();
   }

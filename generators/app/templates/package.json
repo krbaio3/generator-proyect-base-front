@@ -1,7 +1,7 @@
 {
   "name": "<%= title %>",
   "version": "0.0.1",
-  "description": "Proyecto base para proyectos front",
+  "description": "<%= description %>",
   "main": "main.ts",
   "repository": {
     "type": "git",
