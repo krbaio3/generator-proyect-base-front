@@ -1,0 +1,77 @@
+{
+  "name": "generator-proyect-base-front",
+  "version": "0.0.1",
+  "description": "Generador de proyectos base para Front",
+  "homepage": "https://github.com/krbaio3/generator-proyect-base-front#readme",
+  "author": "KrBaIO3 <krbaio3@gmail.com>",
+  "files": ["app"],
+  "main": "index.js",
+  "keywords": [
+    "yeoman-generator",
+    "proyect-base-front",
+    "front",
+    "base",
+    "proyect",
+    "yeoman-generator"
+  ],
+  "devDependencies": {
+    "yeoman-test": "^1.7.0",
+    "yeoman-assert": "^3.1.0",
+    "coveralls": "^2.13.1",
+    "nsp": "^2.6.3",
+    "eslint": "^4.1.0",
+    "prettier": "^1.7.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.2.1",
+    "eslint-config-prettier": "^2.4.0",
+    "eslint-plugin-prettier": "^2.2.0",
+    "eslint-config-xo": "^0.18.2",
+    "jest": "^22.0.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitom/krbaio3/generator-proyect-base-front.git"
+  },
+  "license": "BSD-2-Clause",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/krbaio3/generator-proyect-base-front/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1 && jest",
+    "prepublish": "nsp check",
+    "pretest": "eslint .",
+    "precommit": "lint-staged"
+  },
+  "dependencies": {
+    "generator-generator": "^4.0.0",
+    "global": "^4.3.2",
+    "yeoman-generator": "^2.0.1",
+    "chalk": "^2.1.0",
+    "yosay": "^2.0.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "lint-staged": {
+    "*.js": ["eslint --fix", "git add"],
+    "*.json": ["prettier --write", "git add"]
+  },
+  "eslintConfig": {
+    "extends": ["xo", "prettier"],
+    "env": {
+      "jest": true,
+      "node": true
+    },
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "printWidth": 90
+        }
+      ]
+    },
+    "plugins": ["prettier"]
+  }
+}
