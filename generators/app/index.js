@@ -14,6 +14,11 @@ module.exports = class extends Generator {
     // And you can then access it later; e.g.
     this.log(this.options.appname);
   }
+
+  // Initializing() {
+  // this.composeWith(require.resolve('../component'));
+  // }
+
   prompting() {
     // Have Yeoman greet the user.
     this.log(yosay('Welcome to the ' + chalk.red('proyect-base-front') + ' generator!'));
@@ -126,19 +131,10 @@ module.exports = class extends Generator {
         ]
       },
       {
-        type: 'checkbox',
-        name: 'prueba',
-        message: 'prueba checkbox:',
-        choices: [
-          {
-            name: 'Mocha + Chai',
-            value: 'mocha'
-          },
-          {
-            name: 'Jest',
-            value: 'jest'
-          }
-        ]
+        type: 'confirm',
+        name: 'cucumber',
+        message: 'Do you like cucumber?',
+        default: false
       },
       {
         type: 'confirm',
@@ -164,23 +160,31 @@ module.exports = class extends Generator {
   evaluateRequest() {}
 
   writing() {
-    this.fs.copy(
-      this.templatePath('./**/*'),
-      this.destinationPath('./' + this.options.appname)
-    );
     this.fs.copyTpl(
-      this.templatePath('./package.json'),
-      this.destinationPath('./' + this.options.appname + '/package.json'),
-      { title: this.options.appname }
+      this.templatePath('./**'),
+      this.destinationPath('./' + this.options.appname + '/'),
+      {
+        name: this.name,
+        description: this.description,
+        proyect: this.proyect,
+        script: this.script,
+        linter: this.linter,
+        preProcessor: this.preProcessor,
+        unitTesting: this.unitTesting,
+        e2eTesting: this.e2eTesting,
+        cucumber: this.cucumber,
+        sure: this.sure
+      }
     );
-    this.fs.copyTpl(
-      this.templatePath('./static/manifest.json'),
-      this.destinationPath('./' + this.options.appname + '/static/manifest.json'),
-      { title: this.options.appname }
-    );
+    // This.fs.copyTpl(
+    //   this.templatePath('./.*'),
+    //   this.destinationPath('./' + this.options.appname + '/')
+    // );
   }
 
   install() {
-    // This.installDependencies();
+    this.npmInstall(null, null, { cwd: this.options.appname }).then(() =>
+      this.log(chalk.green('Todo Listo!!'))
+    );
   }
 };
