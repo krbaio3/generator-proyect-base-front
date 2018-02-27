@@ -9,10 +9,16 @@ module.exports = class extends Generator {
     super(args, opts);
 
     // This makes `appname` a required argument.
-    this.argument('appname', { type: String, required: false });
-
+    this.argument('appname', { type: String, required: true });
+    this.argument('type', { type: String, required: true });
+    this.argument('description', { type: String, required: false });
+    this.argument('valor3', { type: String, required: false });
+    console.log(`Esto son args ${args}`);
+    console.log(`Esto son opts.valor1 ${opts.valor1}`);
+    console.log(`Esto son opts.valor2 ${opts.valor2}`);
+    console.log(`Esto son opts.valor3 ${opts.valor3}`);
     // And you can then access it later; e.g.
-    this.log(this.options.appname);
+    // this.log(this.options.appname);
   }
 
   // Initializing() {
@@ -24,6 +30,17 @@ module.exports = class extends Generator {
     this.log(yosay('Welcome to the ' + chalk.red('proyect-base-front') + ' generator!'));
 
     const prompts = [
+      {
+        type: 'input',
+        name: 'name',
+        message: 'What is the appName?',
+        default: this.options.appname
+      },
+      {
+        type: 'input',
+        name: 'description',
+        message: 'What is the description?'
+      },
       {
         type: 'list',
         name: 'proyect',
@@ -68,16 +85,20 @@ module.exports = class extends Generator {
         message: 'What linter do you like?',
         choices: [
           {
-            name: 'TSLint (only TS)',
-            value: 'tsLint'
+            name: 'TSLint + AirBnB (only TS)',
+            value: 'tsAirBnB'
+          },
+          {
+            name: 'TSLint + Standard (only TS)',
+            value: 'tsStd'
           },
           {
             name: 'Eslint + AirBnB',
-            value: 'airbnb'
+            value: 'es6Airbnb'
           },
           {
             name: 'Eslint + Standard',
-            value: 'airbnb'
+            value: 'es6Std'
           }
         ]
       },
@@ -127,6 +148,10 @@ module.exports = class extends Generator {
           {
             name: 'Nightwatch (Selenium based)',
             value: 'nightwatch'
+          },
+          {
+            name: 'Protractor',
+            value: 'protractor'
           }
         ]
       },
@@ -140,51 +165,74 @@ module.exports = class extends Generator {
         type: 'confirm',
         name: 'sure',
         message: 'Are you sure?',
-        default: true
+        default: false
       }
     ];
 
     return this.prompt(prompts).then(props => {
       // To access props later use this.props.someAnswer;
-      this.props = props;
-      this.log('your name is ', props.name);
-      this.log('your proyect ', props.proyect);
-      this.log('your script ', props.script);
-      this.log('your linter ', props.linter);
-      this.log('your preProcessor ', props.preProcessor);
-      this.log('your unitTesting ', props.unitTesting);
-      this.log('your e2eTesting ', props.e2eTesting);
+      console.log(this.options);
+      if (props.sure) {
+        if (this.options.appname == undefined) {
+          this.options.appname = props.name;
+        }
+        this.props = props;
+        this.name = props.name;
+        this.description = props.description;
+        this.proyect = props.proyect;
+        this.script = props.script;
+        this.linter = props.linter;
+        this.preProcessor = props.preProcessor;
+        this.unitTesting = props.unitTesting;
+        this.e2eTesting = props.e2eTesting;
+        this.cucumber = props.cucumber;
+        this.sure = props.sure;
+
+        this.log('your name is ', props.name);
+        this.log('your description ', props.description);
+        this.log('your proyect ', props.proyect);
+        this.log('your script ', props.script);
+        this.log('your linter ', props.linter);
+        this.log('your preProcessor ', props.preProcessor);
+        this.log('your unitTesting ', props.unitTesting);
+        this.log('your e2eTesting ', props.e2eTesting);
+        this.log('your cucumber ', props.cucumber);
+        this.log('your sure ', props.sure);
+      }
     });
   }
 
   evaluateRequest() {}
 
   writing() {
-    this.fs.copyTpl(
-      this.templatePath('./**'),
-      this.destinationPath('./' + this.options.appname + '/'),
-      {
-        name: this.name,
-        description: this.description,
-        proyect: this.proyect,
-        script: this.script,
-        linter: this.linter,
-        preProcessor: this.preProcessor,
-        unitTesting: this.unitTesting,
-        e2eTesting: this.e2eTesting,
-        cucumber: this.cucumber,
-        sure: this.sure
-      }
-    );
+    if (this.sure) {
+      this.fs.copyTpl(
+        this.templatePath('./**'),
+        this.destinationPath('./' + this.options.appname + '/'),
+        {
+          name: this.name,
+          description: this.description,
+          proyect: this.proyect,
+          script: this.script,
+          linter: this.linter,
+          preProcessor: this.preProcessor,
+          unitTesting: this.unitTesting,
+          e2eTesting: this.e2eTesting,
+          cucumber: this.cucumber,
+          sure: this.sure
+        }
+      );
+    }
     // This.fs.copyTpl(
     //   this.templatePath('./.*'),
     //   this.destinationPath('./' + this.options.appname + '/')
     // );
   }
-
   install() {
-    this.npmInstall(null, null, { cwd: this.options.appname }).then(() =>
-      this.log(chalk.green('Todo Listo!!'))
-    );
+    if (this.sure) {
+      this.npmInstall(null, null, { cwd: this.options.appname }).then(() =>
+        this.log(chalk.green('Todo Listo!!'))
+      );
+    }
   }
 };
