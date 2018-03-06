@@ -1,6 +1,8 @@
 {
   "generator-node": {
     "promptValues": {
+      "authorName": "KrBaIO3",
+      "authorEmail": "krbaio3@gmail.com",
       "authorUrl": "Jorge Carballo"
     }
   }

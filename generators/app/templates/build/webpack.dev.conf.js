@@ -1,42 +1,90 @@
-'use strict'
+const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const baseWebpackConfig = require('./webpack.base.conf.js');
+const helpers = require('./helpers');
+const config = require('../config');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const EvalSourceMapDevToolPlugin = require('webpack/lib/EvalSourceMapDevToolPlugin');
 
-// Webpack syntax for develop
-
-const utils = require('./utils')
-const webpack = require('webpack')
-const config = require('../config')
-const merge = require('webpack-merge')
-const baseWebpackConfig = require('./webpack.base.conf')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-
+const ENV = (process.env.NODE_ENV = config.dev.env.NODE_ENV);
+const APP_CONFIG = {
+  API_URL: 'dev.api.local'
+};
+const isProd = ENV == 'production';
 // add hot-reload related code to entry chunks
-Object.keys(baseWebpackConfig.entry).forEach(function (name) {
-  baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
-})
+Object.keys(baseWebpackConfig.entry).forEach(function(name) {
+  baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(
+    baseWebpackConfig.entry[name]
+  );
+  console.log(`Esto es el name: ${name}`);
+});
 
-console.log('webpack ', utils.styleLoaders({ sourceMap: config.dev.cssSourceMap }))
-
-module.exports = merge(baseWebpackConfig, {
+module.exports = webpackMerge(baseWebpackConfig, {
   module: {
-    rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap })
+    rules: [
+      // extraer en funcion la generacion de loaders. Se quita CSS, habilitar cuando esté postCSS
+      /**
+       * Css loader support for *.css files (styles directory only)
+       * Loads external css styles into the DOM, supports HMR
+       *
+       */
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+        include: [helpers.root('src', 'styles')]
+      },
+
+      /**
+       * Sass loader support for *.scss files (styles directory only)
+       * Loads external sass styles into the DOM, supports HMR
+       *
+       */
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+        include: [helpers.root('src', 'styles')]
+      }
+    ]
   },
-  // cheap-module-eval-source-map is faster for development
-  // https://webpack.js.org/configuration/devtool/#devtool
-  devtool: '#cheap-module-eval-source-map',
+
   plugins: [
+    /** Alternativa a devtool: https://webpack.js.org/plugins/eval-source-map-dev-tool-plugin/ */
+    // new EvalSourceMapDevToolPlugin({
+    //   moduleFilenameTemplate: '[resource-path]',
+    //   sourceRoot: 'webpack:///',
+    //   exclude: ['vendor.ts', 'pollyfills.ts']
+    // }),
+    new ExtractTextPlugin('[name].css'),
+
     new webpack.DefinePlugin({
-      'process.env': config.dev.env
+      'process.env': {
+        ENV: config.dev.env,
+        APP_CONFIG: JSON.stringify(APP_CONFIG)
+      }
     }),
+
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',
+      // template: 'src/index.html',
       template: 'index.html',
-      inject: true
+      inject: 'body',
+      xhtml: true,
+      minify: isProd
+        ? {
+            caseSensitive: true,
+            collapseWhitespace: true,
+            keepClosingSlash: true
+          }
+        : false
     }),
     new FriendlyErrorsPlugin()
-  ]
-})
+  ],
+  // cheap-module-eval-source-map is faster for development
+  // https://webpack.js.org/configuration/devtool/#devtool
+  devtool: '#cheap-module-eval-source-map'
+});

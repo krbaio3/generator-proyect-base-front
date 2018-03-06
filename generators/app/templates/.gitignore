@@ -1,7 +1,8 @@
-# Add any directories, files, or patterns you don't want to be tracked by version control
+### Node template
 # Logs
 logs
 *.log
+npm-debug.log*
 
 # Runtime data
 pids
@@ -13,14 +14,6 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
-
-# nyc test coverage
-.nyc_output
-
-# testing
-test/unit/coverage
-test/e2e/reports
-selenium-debug.log
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
@@ -40,47 +33,74 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+### Linux template
+*~
 
-# Node Modules Folder
-node_modules/
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
 
-# Bower Components
-bower_components/
+# KDE directory preferences
+.directory
 
-# Dist folder
-dist/
-.dist/
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+### JetBrains template
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
-# Temp folder
-.tmp/
-tmp/
+# User-specific stuff:
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.vscode/
 
-# SCSS cache
-.sass-cache
+# Sensitive or high-churn files:
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/dataSources.local.xml
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
 
-# Log NPM
-npm-debug*.log
-npm-debug.log*
+# Gradle:
+.idea/gradle.xml
+.idea/libraries
 
-# Log Yarn
-yarn-debug*.log*
-yarn-debug.log*
-yarn-error*.log*
+# Mongo Explorer plugin:
+.idea/mongoSettings.xml
 
-# Compressor Files
-zip
+## File-based project format:
+*.iws
 
-# Files css
-.css
+## Plugin-specific files:
 
-# Config Editor
-.vscode
-nbproject
-.DS_Store
-.thumb
-.authrc
-.idea
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
+# IntelliJ
+/out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+# Created by .ignore support plugin (hsz.mobi)
+dist
+.idea/
+typings/
+
+# Angular
+.angulardoc.json
+
+# Babel cache
+\.awcache/
+
+# Lock Modules
+yarn\.lock
+package-lock.json
