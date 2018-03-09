@@ -11,11 +11,11 @@ module.exports = class extends Generator {
     this.argument('appname', { type: String, required: true });
     this.argument('type', { type: String, required: true });
     this.argument('description', { type: String, required: false });
-    this.argument('valor3', { type: String, required: false });
+    // This.argument('valor3', { type: String, required: false });
     console.log(`Esto son args ${args}`);
-    console.log(`Esto son opts.valor1 ${opts.valor1}`);
-    console.log(`Esto son opts.valor2 ${opts.valor2}`);
-    console.log(`Esto son opts.valor3 ${opts.valor3}`);
+    // Console.log(`Esto son opts.valor1 ${opts.valor1}`);
+    // console.log(`Esto son opts.valor2 ${opts.valor2}`);
+    // console.log(`Esto son opts.valor3 ${opts.valor3}`);
   }
 
   // Initializing() {
@@ -28,9 +28,9 @@ module.exports = class extends Generator {
     this.type = this.options.type;
     this.description = this.options.description;
 
-    this.log('your name is ', this.name);
-    this.log('your description ', this.description);
-    this.log('your type proyect ', this.type);
+    // This.log('your name is ', this.name);
+    // this.log('your description ', this.description);
+    // this.log('your type proyect ', this.type);
   }
 
   evaluateRequest() {}
@@ -47,12 +47,12 @@ module.exports = class extends Generator {
     );
   }
   install() {
-    // This.npmInstall(null, null, { cwd: this.options.appname }).then(() =>
-    //   this.log(chalk.green('Todo Listo!!'))
-    // );
-    this.log(chalk.green('Todo Listo!!'));
+    this.log(chalk.blue('Instalando Dependencias'));
+    this.npmInstall(null, null, { cwd: this.options.appname }).then(() =>
+      this.log(chalk.blue('Dependencias Instaladas!!'))
+    );
   }
   end() {
-    this.log(chalk.green('Todo Listo!!'));
+    this.log(chalk.green('Use npm start para levantar la aplicacion en local'));
   }
 };

@@ -1,6 +1,7 @@
 'use strict';
 const Generator = require('yeoman-generator');
 const rename = require('gulp-rename');
+const chalk = require('chalk');
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -26,17 +27,17 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    this.renameCustomFiles(
-      './angular/components',
-      `./${this.opts.componentName}`,
-      'component'
-    );
-    this.renameCustomFiles('./angular/actions', './actions', 'actions');
-    this.renameCustomFiles('./angular/models', './model', 'model');
-    this.renameCustomFiles('./angular/reducers', './reducers', 'reducer');
+    this.renameCustomFiles('./components', `./${this.opts.componentName}`, 'component');
+    this.renameCustomFiles('./actions', './actions', 'actions');
+    this.renameCustomFiles('./models', './model', 'model');
+    this.renameCustomFiles('./reducers', './reducers', 'reducer');
   }
 
-  install() {
-    // This.installDependencies();
+  // Install() {
+  //   this.installDependencies();
+  // }
+
+  end() {
+    this.log(chalk.green('Component create!'));
   }
 };
