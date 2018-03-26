@@ -6,14 +6,20 @@ const config = require('../config');
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV);
 }
+debugger;
 
 const opn = require('opn');
 const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
 const proxyMiddleware = require('http-proxy-middleware');
+// const webpackConfig =
+//   process.env.NODE_ENV === 'testing'
+//     ? require('./webpack.prod.conf')
+//     : require('./webpack.dev.conf');
+
 const webpackConfig =
-  process.env.NODE_ENV === 'testing'
+  process.env.NODE_ENV === 'production'
     ? require('./webpack.prod.conf')
     : require('./webpack.dev.conf');
 
@@ -71,7 +77,7 @@ const staticPath = path.posix.join(
 
 console.log(`Este es el staticPath => ${staticPath}`);
 
-app.use(staticPath, express.static('./static'));
+app.use(staticPath, express.static('./public'));
 
 const uri = 'http://localhost:' + port;
 

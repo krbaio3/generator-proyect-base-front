@@ -11,17 +11,7 @@ module.exports = class extends Generator {
     this.argument('appname', { type: String, required: true });
     this.argument('type', { type: String, required: true });
     this.argument('description', { type: String, required: false });
-    this.argument('valor3', { type: String, required: false });
     console.log(`Esto son args ${args}`);
-    console.log(`Esto son opts.valor1 ${opts.valor1}`);
-    console.log(`Esto son opts.valor2 ${opts.valor2}`);
-    console.log(`Esto son opts.valor3 ${opts.valor3}`);
-    // And you can then access it later; e.g.
-    // this.log(this.options.appname);
-  }
-
-  default() {
-    this.composeWith(require.resolve('../component'));
   }
 
   prompting() {
@@ -29,10 +19,6 @@ module.exports = class extends Generator {
     this.name = this.options.appname;
     this.type = this.options.type;
     this.description = this.options.description;
-
-    this.log('your name is ', this.name);
-    this.log('your description ', this.description);
-    this.log('your type proyect ', this.type);
   }
 
   evaluateRequest() {}
@@ -45,25 +31,18 @@ module.exports = class extends Generator {
         name: this.name,
         description: this.description,
         proyect: this.type
-        // HtmlWebpackPlugin: {
-        //   files: {
-        //     webpackManifest: '<%=htmlWebpackPlugin.files.webpackManifest%>'
-        //   }
-        // }
       }
     );
-    // This.fs.copyTpl(
-    //   this.templatePath('./.*'),
-    //   this.destinationPath('./' + this.options.appname + '/')
-    // );
   }
+
   install() {
-    // This.npmInstall(null, null, { cwd: this.options.appname }).then(() =>
-    //   this.log(chalk.green('Todo Listo!!'))
-    // );
-    this.log(chalk.green('Todo Listo!!'));
+    this.log(chalk.blue('Instalando Dependencias'));
+    this.npmInstall(null, null, { cwd: this.options.appname }).then(() =>
+      this.log(chalk.blue('Dependencias Instaladas!!'))
+    );
   }
+
   end() {
-    this.log(chalk.green('Todo Listo!!'));
+    this.log(chalk.green('Use npm start para levantar la aplicacion en local'));
   }
 };

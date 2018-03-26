@@ -111,7 +111,6 @@ function getEnvFile(suffix) {
 // metadatos
 // configuracion de ngc-webpack, transforma los ts de angular
 exports.ngcWebpackSetup = (prod, metadata) => {
-
   if (!metadata) {
     metadata = DEFAULT_METADATA;
   }
@@ -137,12 +136,16 @@ exports.ngcWebpackSetup = (prod, metadata) => {
     sourceMap
   };
 
+  console.log(`metadata.envFileSuffix => ${JSON.stringify(metadata.envFileSuffix, null, 2)}`);
+
   const environment = getEnvFile(metadata.envFileSuffix);
   if (environment) {
     ngcWebpackPluginOptions.hostReplacementPaths = {
       [helpers.root('src/environments/environment.ts')]: environment
     };
   }
+
+  console.log(`environment => ${environment}`);
 
   if (!prod && metadata.WATCH) {
     // Force commonjs module format for TS on dev watch builds.
@@ -298,4 +301,25 @@ exports.assetsLoader = limit => {
     .concat(svg)
     .concat(media)
     .concat(fonts);
+};
+
+exports.getUglifyOptions = () => {
+  const uglifyCompressOptions = {
+    pure_getters: true /* buildOptimizer */,
+    // PURE comments work best with 3 passes.
+    // See https://github.com/webpack/webpack/issues/2899#issuecomment-317425926.
+    passes: 3 /* buildOptimizer */
+  };
+
+  return {
+    ecma: 6,
+    warnings: false, // TODO verbose based on option?
+    ie8: false,
+    mangle: true,
+    compress: uglifyCompressOptions,
+    output: {
+      ascii_only: true,
+      comments: false
+    }
+  };
 };

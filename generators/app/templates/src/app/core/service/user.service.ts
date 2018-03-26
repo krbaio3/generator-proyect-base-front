@@ -6,7 +6,7 @@ export class UserService {
   private _userName = 'Sherlock Holmes';
 
   constructor( @Optional() config: UserServiceConfig) {
-    if (config) { this._userName = config.userName; }
+    if (config) { this._userName = config.userNameMethod; }
     console.log(new Date().getTime());
   }
 

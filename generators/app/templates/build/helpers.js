@@ -13,4 +13,4 @@ exports.resolve = dir => path.join(__dirname, '..', dir);
 
 exports.hasNpmFlag = flag => EVENT.includes(flag);
 
-exports.hasFlag = (flag) => process.argv.join('').indexOf(flag) > -1;
+exports.hasFlag = flag => process.argv.join('').indexOf(flag) > -1;

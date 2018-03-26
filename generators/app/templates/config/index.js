@@ -8,7 +8,7 @@ module.exports = {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: helpers.root('dist'),
-    assetsSubDirectory: 'static',
+    assetsSubDirectory: 'public',
     assetsPublicPath: '/',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
@@ -27,7 +27,7 @@ module.exports = {
     env: require('./dev.env'),
     port: 4500,
     autoOpenBrowser: true,
-    assetsSubDirectory: 'static',
+    assetsSubDirectory: 'public',
     assetsPublicPath: '/',
     // configure proxy for http-proxy-middleware
     proxyTable: {},

@@ -1,0 +1,23 @@
+{
+  "allScriptsTimeout": 11000,
+  "specs": ["spec/*.e2e-spec.js"],
+  "capabilities": {
+    "browserName": "chrome",
+    "chromeOptions": {
+      "args": ["--headless", "--disable-gpu", "--window-size=800,600"]
+    }
+  },
+  "directConnect": true,
+  "baseUrl": "http: //localhost:4200/",
+  "framework": "jasmine",
+  "jasmineNodeOpts": {
+    "showColors": true,
+    "defaultTimeoutInterval": 30000,
+    "showTiming": true,
+    "isVerbose": false,
+    "includeStackTrace": false
+  },
+  "report": "reports.xml",
+  "protractorReport": "./protractorReport",
+  "screenshots": "./screenshots"
+}

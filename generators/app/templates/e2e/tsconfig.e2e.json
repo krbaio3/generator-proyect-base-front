@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "sourceMap": false,
+    "outDir": "spec",
+    "baseUrl": "./",
+    "module": "commonjs",
+    "lib": ["ES2017", "DOM"],
+    "target": "es5",
+    "types": ["jasmine", "jasminewd2", "node"]
+  },
+  "include": ["spec/**/*e2e-spec.ts"],
+  "exclude": [""]
+}

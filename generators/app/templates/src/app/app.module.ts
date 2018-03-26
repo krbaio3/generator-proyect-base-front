@@ -1,6 +1,7 @@
 import { AppConfig } from './app.config';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { UserServiceConfig } from './core/service/user-service.config';
 
 /* App Root */
 import { AppComponent } from './app.component';
@@ -16,7 +17,7 @@ import { APP_BASE_HREF } from '@angular/common';
 	imports: [
 		BrowserModule,
 		/* Core Module */
-		CoreModule.forRoot({ userName: 'Nguyen Tran' }),
+		CoreModule.forRoot( new UserServiceConfig('Nguyen Tran') ),
 		AppRoutingModule,
 	],
 	declarations: [AppComponent],

@@ -1,0 +1,15 @@
+# Encrypt the repository
+# Remove/modify this line if the repository is meant to be open-source
+*.* filter=git-crypt diff=git-crypt
+.gitattributes !filter !diff
+
+# These files are text and should be normalized (Convert crlf => lf)
+*.scss text
+*.css text
+*.js text
+*.ts text
+*.html text
+
+# Auto detect text files and perform LF normalization
+# http://davidlaing.com/2012/09/19/customise-your-gitattributes-to-become-a-git-ninja/
+* text=auto

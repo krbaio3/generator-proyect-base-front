@@ -66,15 +66,6 @@ const METADATOS_DEFECTO = {
   envFileSuffix: ''
 };
 
-const METADATOS = Object.assign({}, METADATOS_DEFECTO, {
-  // host: HOST,
-  // port: PORT,
-  // ENV: ENV,
-  // HMR: helpers.hasProcessFlag('hot'),
-  // PUBLIC: process.env.PUBLIC_DEV || HOST + ':' + PORT
-});
-
 exports.entry = entry;
 exports.output = output;
 exports.METADATOS_DEFECTO = METADATOS_DEFECTO;
-exports.METADATOS = METADATOS;

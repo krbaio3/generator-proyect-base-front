@@ -34,9 +34,9 @@ module.exports = class extends Generator {
 
   writing() {
     this.renameCustomFiles('./components', `./${this.opts.componentName}`, 'component');
-    this.renameCustomFiles('./actions', './actions', 'actions');
-    this.renameCustomFiles('./models', './models', 'model');
-    this.renameCustomFiles('./reducers', './reducers', 'reducer');
+    // This.renameCustomFiles('./actions', './actions', 'actions');
+    // this.renameCustomFiles('./models', './model', 'model');
+    // this.renameCustomFiles('./reducers', './reducers', 'reducer');
   }
 
   // Install() {
