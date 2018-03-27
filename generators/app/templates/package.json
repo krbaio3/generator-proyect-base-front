@@ -14,8 +14,8 @@
     "clean": "node node_modules/.bin/rimraf dist",
     "debug": "node --nolazy --inspect-brk=9229 build/dev-server.js",
     "test": "node node_modules/.bin/karma start test/karma.conf.js",
-    "protractor": "node node_modules/.bin/protractor e2e/protractor.conf.js",
-    "preprotractor":
+    "e2e": "node node_modules/.bin/protractor e2e/protractor.conf.js",
+    "pree2e":
       "node node_modules/typescript/bin/tsc --project e2e/tsconfig.e2e.json && node node_modules/protractor/bin/webdriver-manager update"
   },
   "keywords": ["proyect", "base", "front"],

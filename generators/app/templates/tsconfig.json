@@ -15,12 +15,12 @@
     "typeRoots": ["node_modules/@types"],
     "types": ["node", "jasmine", "karma"]
   },
-  "exclude": ["node_modules", "dist", "src/**/*.spec.ts", "src/**/*.e2e.ts"],
+  "exclude": ["node_modules", "dist", "test/**/*.ts", "e2e/**/*.ts"],
   "angularCompilerOptions": {
     "skipMetadataEmit": true
   },
-  "compileOnSave": false,
-  "buildOnSave": false,
+  "compileOnSave": true,
+  "buildOnSave": true,
   "atom": {
     "rewriteTsconfig": false
   }

@@ -10,5 +10,11 @@
     "types": ["jasmine", "jasminewd2", "node"]
   },
   "include": ["spec/**/*e2e-spec.ts"],
-  "exclude": [""]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "test/**/*.ts",
+    "typescript.ts",
+    "vue.vue"
+  ]
 }

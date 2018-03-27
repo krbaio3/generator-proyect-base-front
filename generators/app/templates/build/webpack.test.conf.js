@@ -46,6 +46,7 @@ module.exports = {
               // Use inline sourcemaps for "karma-remap-coverage" reporter
               sourceMap: false,
               inlineSourceMap: true,
+              // configFileName: '../test/tsconfig.karma.json',
               compilerOptions: {
                 // Remove TypeScript helpers to be injected
                 // below by DefinePlugin

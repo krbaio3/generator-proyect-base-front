@@ -2,7 +2,7 @@
 // Generated on Wed Mar 21 2018 15:32:59 GMT+0100 (CET)
 
 module.exports = function(config) {
-  const testWebpackConfig = require('./build/webpack.test.conf.js');
+  const testWebpackConfig = require('../build/webpack.test.conf.js');
   config.set({
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -13,9 +13,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      { pattern: './test/index.ts', watched: false },
+      { pattern: './index.ts', watched: false },
       {
-        pattern: './src/assets/**/*',
+        pattern: '../src/assets/**/*',
         watched: false,
         included: false,
         served: true,
@@ -34,8 +34,8 @@ module.exports = function(config) {
     // available preprocessors: http://karma-runner.github.io/2.0/config/preprocessors.html
     // Add 'coverage' for config Coverage
     preprocessors: {
-      './test/index.ts': ['webpack', 'sourcemap'],
-      'src/app/**/!(*.spec).ts': ['webpack', 'sourcemap', 'coverage']
+      './index.ts': ['webpack', 'sourcemap'],
+      '../src/app/**/!(*.spec).ts': ['webpack', 'sourcemap', 'coverage']
       // './src/**/*.ts': ['webpack', 'sourcemap', 'coverage']
     },
 
